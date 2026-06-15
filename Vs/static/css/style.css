@@ -177,3 +177,8 @@ background:none;
 color:white;
 border:1px solid #d4af37;
 }
+
+body{
+    margin:0;
+    padding:0;
+}
