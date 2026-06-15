@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard">
+
+    <h1>Admin Dashboard</h1>
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>{{ total_products }}</h2>
+            <p>Total Products</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ total_orders }}</h2>
+            <p>Total Orders</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ total_users }}</h2>
+            <p>Total Users</p>
+        </div>
+
+        <div class="card">
+            <h2>₹{{ total_revenue }}</h2>
+            <p>Total Revenue</p>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

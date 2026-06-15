@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cart | VS Fashions{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}{% block content %}
+
+<section class="cart-hero"><span class="subtitle">SHOPPING CART</span>
+
+<h1>Your <span>Luxury Cart</span></h1>
+
+<p>
+    Review your selected items and proceed to checkout
+    for a seamless premium shopping experience.
+</p>
+
+</section><section class="cart-wrapper"><div class="cart-left">
+
+    {% for item in cart_items %}
+
+    <div class="cart-item">
+
+        <div class="product-image">
+            {% if item.product.image %}
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+            {% endif %}
+        </div>
+
+        <div class="product-details">
+
+            <h2>{{ item.product.name }}</h2>
+
+            <p class="category">
+                VS Fashions Collection
+            </p>
+
+            <h3>₹{{ item.product.price }}</h3>
+
+            <p class="size">
+                Size: {{ item.size }}
+            </p>
+
+            <div class="quantity">
+
+                <a href="{% url 'decrease_quantity' item.id %}">
+                    <button class="qty-btn">-</button>
+                </a>
+
+                <span class="qty-count">{{ item.quantity }}</span>
+
+                <a href="{% url 'increase_quantity' item.id %}">
+                    <button class="qty-btn">+</button>
+                </a>
+
+            </div>
+
+            <a href="{% url 'remove_from_cart' item.id %}">
+                <button class="remove-btn">
+                    Remove
+                </button>
+            </a>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="empty-cart">
+        <h2>Your cart is empty 🛒</h2>
+        <p>Explore our premium collection and add products.</p>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<div class="cart-right">
+
+    <div class="summary-card">
+
+        <h2>Order Summary</h2>
+
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span>₹{{ total }}</span>
+        </div>
+
+        <div class="summary-row">
+            <span>Shipping</span>
+            <span>Free</span>
+        </div>
+
+        <div class="summary-row">
+            <span>Tax</span>
+            <span>₹0</span>
+        </div>
+
+        <hr>
+
+        <div class="summary-row total">
+            <span>Total</span>
+            <span>₹{{ total }}</span>
+        </div>
+
+        <a href="{% url 'checkout' %}">
+            <button class="checkout-btn">
+                Proceed To Checkout
+            </button>
+        </a>
+
+    </div>
+
+</div>
+
+</section><section class="premium-note"><h2>Luxury Delivered To Your Doorstep</h2>
+
+<p>
+    Every VS Fashions order is carefully packed and delivered
+    with premium quality assurance and customer satisfaction.
+</p>
+
+</section>{% endblock %}

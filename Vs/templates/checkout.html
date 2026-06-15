@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | VS Fashions</title><link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body><header>
+    <div class="logo">
+        <h1>VS FASHIONS</h1>
+    </div>
+</header><div class="checkout-container"><div class="left-section">
+
+    <h2>Delivery Address</h2>
+
+    <form method="POST" id="checkout-form">
+        {% csrf_token %}
+
+        <input type="text" name="full_name" placeholder="Full Name" required>
+
+        <input type="text" name="phone" placeholder="Phone Number" required>
+
+        <input type="email" name="email" placeholder="Email Address">
+
+        <textarea name="address" rows="5" placeholder="Complete Address" required></textarea>
+
+        <button type="button" id="pay-btn">
+            Pay ₹{{ total }}
+        </button>
+
+    </form>
+
+</div>
+
+<div class="right-section">
+
+    <h2>Order Summary</h2>
+
+    {% for item in cart_items %}
+
+    <div class="product-card">
+
+        <h3>{{ item.product.name }}</h3>
+
+        <p>Size : {{ item.size }}</p>
+
+        <p>Quantity : {{ item.quantity }}</p>
+
+        <p class="price">
+            ₹{{ item.product.price }}
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+    <div class="total-box">
+
+        <h3>Total Amount</h3>
+
+        <h1>₹{{ total }}</h1>
+
+    </div>
+
+</div>
+
+</div><script src="https://checkout.razorpay.com/v1/checkout.js"></script><script>
+
+var options = {
+    "key": "{{ razorpay_key }}",
+    "amount": "{{ payment.amount }}",
+    "currency": "INR",
+    "name": "VS FASHIONS",
+    "description": "Fashion Order Payment",
+    "order_id": "{{ payment.id }}",
+
+    "handler": function (response) {
+
+        document.getElementById("checkout-form").submit();
+
+    },
+
+    "theme": {
+        "color": "#d4af37"
+    }
+};
+
+var rzp = new Razorpay(options);
+
+document.getElementById("pay-btn").onclick = function(e) {
+    e.preventDefault();
+    rzp.open();
+};
+
+</script></body>
+</html>

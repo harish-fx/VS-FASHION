@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shop | VS Fashions{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/shop.css' %}">
+{% endblock %}{% block content %}
+
+<section class="shop-hero"><h1>Premium Collection</h1>
+
+<p>Discover styles crafted for modern elegance</p>
+
+</section><section class="shop-area"><form method="GET" class="search-form">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search products..."
+        value="{{ request.GET.search }}"
+    >
+
+    <select name="category">
+
+        <option value="All">All Categories</option>
+        <option value="Men">Men</option>
+        <option value="Women">Women</option>
+        <option value="New Arrivals">New Arrivals</option>
+
+    </select>
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+<div class="products">
+
+    {% for product in products %}
+
+    <div class="card">
+
+        <a href="{% url 'product' product.id %}">
+
+            <div class="image-box">
+
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/300x400">
+                {% endif %}
+
+            </div>
+
+        </a>
+
+        <h2>{{ product.name }}</h2>
+
+        <p>₹{{ product.price }}</p>
+
+        <a href="{% url 'add_to_cart' product.id %}">
+            <button>Add To Cart</button>
+        </a>
+
+    </div>
+
+    {% empty %}
+
+    <h2>No products found.</h2>
+
+    {% endfor %}
+
+</div>
+
+</section>{% endblock %}

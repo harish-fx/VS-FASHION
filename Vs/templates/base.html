@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{% block title %}VS Fashions{% endblock %}</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+{% block extra_css %}
+{% endblock %}
+
+</head><body><header><div class="logo">
+
+    <a href="/home/">
+
+        <h1>VS</h1>
+
+        <span>FASHIONS</span>
+
+    </a>
+
+</div>
+
+<nav>
+
+    <a href="/home/">Home</a>
+
+    <a href="/shop/">Shop</a>
+
+    <a href="/about/">About</a>
+
+    <a href="/contact/">Contact</a>
+
+</nav>
+
+<div class="right-menu">
+
+    <a href="/cart/">Cart</a>
+
+    <a href="/orders/">Orders</a>
+
+    {% if user.is_authenticated %}
+
+        <span class="username">
+            {{ user.username }}
+        </span>
+
+        <a href="{% url 'logout' %}">
+            <button class="premium-btn">
+                Logout
+            </button>
+        </a>
+
+    {% else %}
+
+        <a href="{% url 'login' %}">
+            <button class="premium-btn">
+                Login
+            </button>
+        </a>
+
+    {% endif %}
+
+</div>
+
+</header><main>{% block content %}
+{% endblock %}
+
+</main></body></html>

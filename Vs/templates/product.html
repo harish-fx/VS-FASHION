@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html><html>
+<head>
+    <title>VS Fashions | Product</title><link rel="stylesheet" href="{% static 'css/product.css' %}">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+</head><body><header>
+    <div class="brand">
+        <h2>VS</h2>
+        <p>FASHIONS</p>
+    </div><nav>
+    <a href="/home">Home</a>
+    <a href="/shop/">Shop</a>
+    <a href="/cart/" class="active">Cart</a>
+    <a href="#">Collections</a>
+    <a href="#">About</a>
+
+    <button>Login</button>
+</nav>
+
+</header><section class="product"><div class="gallery">
+    <img class="main-img"
+         src="{{ product.image.url }}"
+         alt="{{ product.name }}">
+</div>
+
+<div class="details">
+
+    <p class="tag">
+        PREMIUM COLLECTION
+    </p>
+
+    <h1>{{ product.name }}</h1>
+
+    <div class="rating">
+        ⭐⭐⭐⭐⭐
+    </div>
+
+    <h2>₹{{ product.price }}</h2>
+
+    <p class="stock">
+        ✔ In Stock
+    </p>
+
+    <p class="desc">
+        {{ product.description }}
+    </p>
+
+    <h3>Select Size</h3>
+
+    <form action="{% url 'add_to_cart' product.id %}" method="POST">
+
+        {% csrf_token %}
+
+        <div class="sizes">
+            <button type="button">S</button>
+            <button type="button">M</button>
+            <button type="button">L</button>
+            <button type="button">XL</button>
+        </div>
+
+        <input type="hidden" id="selectedSize" name="size" value="S">
+
+        <div class="actions">
+
+            <button type="submit" class="cart">
+                Add To Cart
+            </button>
+
+            <form action="{% url 'buy_now' product.id %}" method="POST">
+    {% csrf_token %}
+
+    <input type="hidden" id="selectedSize" name="size" value="S">
+
+    <button type="submit" class="buy">
+        Buy Now
+    </button>
+</form>
+        </div>
+
+    </form>
+
+    <p class="delivery">
+        🚚 Free Delivery | Secure Payment
+    </p>
+
+</div>
+
+</section><script src="{% static 'js/product.js' %}"></script></body>
+</html>

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Orders | VS Fashions{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/orders.css' %}">
+{% endblock %}{% block content %}
+
+<section class="orders-section"><p class="tag">
+    — ORDER HISTORY
+</p>
+
+<h1>
+    Your Luxury
+    <span>Orders</span>
+</h1>
+
+{% for order in orders %}
+
+<div class="order-card">
+
+    <div class="top">
+
+        <h3>
+            Order #{{ order.id }}
+        </h3>
+
+        <span class="status">
+            Confirmed
+        </span>
+
+    </div>
+
+    <p>
+        {{ order.full_name }}
+    </p>
+
+    <p>
+        {{ order.address }}
+    </p>
+
+    <p class="price">
+        ₹{{ order.total_amount }}
+    </p>
+
+    <p>
+        {{ order.created_at }}
+    </p>
+
+</div>
+
+{% empty %}
+
+<div class="empty-box">
+
+    <h2>No Orders Yet</h2>
+
+    <p>
+        Start shopping your luxury collection.
+    </p>
+
+    <a href="/shop/" class="shop-btn">
+        Shop Now
+    </a>
+
+</div>
+
+{% endfor %}
+
+</section>{% endblock %}

@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Success | VS Fashions</title>
+
+    <link rel="stylesheet" href="{% static 'css/success.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="success-container">
+
+    <div class="success-card">
+
+        <div class="checkmark">
+            ✓
+        </div>
+
+        <h1>Order Placed Successfully</h1>
+
+        <p>
+            Thank you for shopping with VS Fashions.
+            Your order has been received and will be processed shortly.
+        </p>
+
+        <div class="order-status">
+            <span>✔ Payment Status :</span>
+            <strong>Pending</strong>
+        </div>
+
+        <div class="order-status">
+            <span>✔ Order Status :</span>
+            <strong>Confirmed</strong>
+        </div>
+
+        <a href="/shop/" class="shop-btn">
+            Continue Shopping
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

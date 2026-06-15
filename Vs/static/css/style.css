@@ -1,0 +1,179 @@
+.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:70px 7%;
+animation:show 1s ease;
+}
+
+@keyframes show{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+    opacity:1;
+    transform:translateY(0);
+}
+
+}
+
+.content{
+width:50%;
+}
+
+.tag{
+color:#d4af37;
+letter-spacing:4px;
+}
+
+h1{
+font-family:'Cormorant Garamond',serif;
+font-size:90px;
+line-height:1;
+margin:25px 0;
+}
+
+h1 span{
+color:#d4af37;
+}
+
+.desc{
+font-size:20px;
+color:#ccc;
+margin-bottom:35px;
+}
+
+.shop{
+background:#d4af37;
+border:0;
+padding:18px 45px;
+border-radius:40px;
+}
+
+.explore{
+background:none;
+color:white;
+border:1px solid #d4af37;
+padding:18px 45px;
+border-radius:40px;
+margin-left:15px;
+}
+
+.features{
+display:flex;
+gap:40px;
+margin-top:60px;
+}
+
+.features h3{
+color:#d4af37;
+}
+
+.brand-card{
+width:45%;
+height:450px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+
+background:rgba(255,255,255,.05);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(212,175,55,.3);
+
+border-radius:25px;
+
+animation:float 5s infinite;
+
+}
+
+@keyframes float{
+50%{
+transform:translateY(-15px);
+}
+}
+
+.brand-card h1{
+font-size:170px;
+color:#d4af37;
+}
+
+.brand-card p{
+letter-spacing:15px;
+color:#d4af37;
+}
+
+.collection{
+text-align:center;
+padding:50px 7%;
+}
+
+.collection span{
+color:#d4af37;
+letter-spacing:5px;
+}
+
+.collection h2{
+font-family:'Cormorant Garamond',serif;
+font-size:50px;
+margin:20px;
+}
+
+.products{
+display:flex;
+gap:25px;
+}
+
+.card{
+width:33%;
+height:330px;
+overflow:hidden;
+border-radius:20px;
+position:relative;
+transition:.5s;
+}
+
+.card img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:.6s;
+}
+
+.card:hover{
+transform:translateY(-15px);
+box-shadow:0 25px 50px rgba(212,175,55,.25);
+}
+
+.card:hover img{
+transform:scale(1.1);
+}
+
+.card h3{
+position:absolute;
+bottom:45px;
+left:25px;
+font-family:'Cormorant Garamond',serif;
+font-size:30px;
+}
+
+.card p{
+position:absolute;
+bottom:20px;
+left:25px;
+color:#d4af37;
+}
+
+.view{
+margin-top:40px;
+padding:15px 45px;
+border-radius:30px;
+background:none;
+color:white;
+border:1px solid #d4af37;
+}

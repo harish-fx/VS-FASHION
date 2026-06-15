@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | VS Fashions{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}{% block content %}
+
+<section class="contact-hero"><span class="subtitle">CONTACT VS FASHIONS</span>
+
+<h1>Let's Create Something <span>Elegant</span></h1>
+
+<p>
+    Reach out to us for support, inquiries, collaborations,
+    or anything fashion related. We're always ready to help.
+</p>
+
+</section><section class="contact-container"><div class="info-card">
+
+    <h2>Visit Us</h2>
+    <p>Tamil Nadu, India</p>
+
+    <h2>Email</h2>
+    <p>support@vsfashions.com</p>
+
+    <h2>Phone</h2>
+    <p>+91 9994183239</p>
+
+</div>
+
+<div class="form-card">
+
+    <form>
+
+        <input type="text" placeholder="Your Name">
+
+        <input type="email" placeholder="Your Email">
+
+        <textarea rows="6" placeholder="Your Message"></textarea>
+
+        <button type="submit">
+            Send Message
+        </button>
+
+    </form>
+
+</div>
+
+</section><footer>
+    <p>© 2025 VS Fashions. Luxury Fashion Redefined.</p>
+</footer>{% endblock %}

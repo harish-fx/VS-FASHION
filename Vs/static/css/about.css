@@ -1,0 +1,142 @@
+.about-hero{
+min-height:80vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:100px 10%;
+}
+
+.subtitle{
+color:#d4af37;
+letter-spacing:4px;
+font-size:14px;
+}
+
+.hero-content h1{
+font-family:'Cormorant Garamond',serif;
+font-size:90px;
+font-weight:700;
+margin:20px 0;
+line-height:1;
+}
+
+.hero-content h1 span{
+color:#d4af37;
+}
+
+.hero-content p{
+max-width:750px;
+margin:auto;
+color:#cfcfcf;
+line-height:1.8;
+font-size:17px;
+}
+
+.about-story{
+text-align:center;
+padding:80px 10%;
+}
+
+.section-title h2{
+font-family:'Cormorant Garamond',serif;
+font-size:55px;
+color:#d4af37;
+margin-bottom:25px;
+}
+
+.about-story p{
+max-width:850px;
+margin:auto;
+color:#bfbfbf;
+line-height:2;
+}
+
+.about-cards{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+padding:50px 10%;
+}
+
+.about-cards .card{
+width:340px;
+background:#0d0d0d;
+border:1px solid rgba(212,175,55,.4);
+border-radius:20px;
+padding:35px;
+transition:.4s;
+}
+
+.about-cards .card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 25px rgba(212,175,55,.3);
+}
+
+.about-cards .card h3{
+color:#d4af37;
+margin-bottom:15px;
+font-size:24px;
+}
+
+.about-cards .card p{
+color:#cfcfcf;
+line-height:1.8;
+}
+
+.stats{
+display:flex;
+justify-content:center;
+gap:100px;
+flex-wrap:wrap;
+text-align:center;
+padding:100px 10%;
+}
+
+.stat-box h2{
+color:#d4af37;
+font-size:60px;
+margin-bottom:10px;
+}
+
+.stat-box p{
+color:#ddd;
+}
+
+.quote-section{
+text-align:center;
+padding:100px 10%;
+}
+
+.quote-section h2{
+font-family:'Cormorant Garamond',serif;
+font-size:50px;
+color:#d4af37;
+max-width:900px;
+margin:auto;
+}
+
+@media(max-width:768px){
+
+.hero-content h1{
+    font-size:55px;
+}
+
+.section-title h2{
+    font-size:40px;
+}
+
+.quote-section h2{
+    font-size:32px;
+}
+
+.stats{
+    gap:50px;
+}
+
+.about-cards .card{
+    width:100%;
+}
+
+}

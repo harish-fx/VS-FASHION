@@ -1,0 +1,109 @@
+.orders-section{
+width:85%;
+margin:80px auto;
+}
+
+.tag{
+color:#d4af37;
+letter-spacing:4px;
+}
+
+.orders-section h1{
+font-family:'Cormorant Garamond',serif;
+font-size:75px;
+margin:20px 0 50px;
+}
+
+.orders-section h1 span{
+color:#d4af37;
+}
+
+.order-card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(212,175,55,.25);
+backdrop-filter:blur(20px);
+border-radius:20px;
+padding:30px;
+margin-bottom:25px;
+transition:.4s;
+}
+
+.order-card:hover{
+transform:translateY(-8px);
+box-shadow:0 20px 40px rgba(212,175,55,.15);
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.top h3{
+color:#d4af37;
+}
+
+.status{
+background:rgba(212,175,55,.15);
+color:#d4af37;
+padding:8px 18px;
+border-radius:30px;
+}
+
+.price{
+color:#d4af37;
+font-size:28px;
+font-weight:700;
+margin:15px 0;
+}
+
+.empty-box{
+text-align:center;
+padding:120px 20px;
+}
+
+.empty-box h2{
+color:#d4af37;
+margin-bottom:15px;
+font-family:'Cormorant Garamond',serif;
+font-size:42px;
+}
+
+.shop-btn{
+display:inline-block;
+margin-top:25px;
+text-decoration:none;
+background:#d4af37;
+color:black;
+padding:15px 35px;
+border-radius:35px;
+font-weight:600;
+transition:.3s;
+}
+
+.shop-btn:hover{
+transform:translateY(-3px);
+}
+
+@media(max-width:768px){
+
+.orders-section{
+    width:92%;
+}
+
+.orders-section h1{
+    font-size:50px;
+}
+
+.top{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.price{
+    font-size:22px;
+}
+
+}

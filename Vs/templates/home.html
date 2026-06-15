@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}VS Fashions{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}{% block content %}
+
+<section class="hero"><div class="content"><p class="tag">
+— NEW COLLECTION 2026
+</p><h1>
+DEFINE YOUR
+<br>
+<span>STYLE</span>
+</h1><p class="desc">
+Premium fashion crafted for confident personalities.
+</p><div class="buttons"><button class="shop">
+Shop Collection →
+</button><button class="explore">
+Explore Now
+</button></div><div class="features"><div>
+<h3>✦</h3>
+<p>Premium Quality</p>
+<small>Finest Materials</small>
+</div><div>
+<h3>▣</h3>
+<p>Free Delivery</p>
+<small>On Orders Over ₹999</small>
+</div><div>
+<h3>◉</h3>
+<p>24/7 Support</p>
+<small>We Are Here</small>
+</div></div></div><div class="brand-card"><h1>VS</h1><p>FASHIONS</p></div></section><section class="collection"><span>
+TRENDING NOW
+</span><h2>
+Latest Collection
+</h2><div class="products"><div class="card"><img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e"><h3>MEN WEAR</h3><p>Explore →</p></div><div class="card"><img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c"><h3>WOMEN WEAR</h3><p>Explore →</p></div><div class="card"><img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49"><h3>PREMIUM STYLE</h3><p>Explore →</p></div></div><button class="view">
+View All Collection
+</button></section>{% endblock %}
