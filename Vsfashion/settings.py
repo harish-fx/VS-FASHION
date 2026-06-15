@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://vs-fashion-production-0dd4.up.railway.app",
+]
+
 
 # Application definition
 
