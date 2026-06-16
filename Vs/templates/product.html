@@ -1,92 +1,124 @@
 {% load static %}
 
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html>
+
 <head>
-    <title>VS Fashions | Product</title><link rel="stylesheet" href="{% static 'css/product.css' %}">
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>VS Fashions | Product</title>
 
-</head><body><header>
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header>
+
     <div class="brand">
         <h2>VS</h2>
         <p>FASHIONS</p>
-    </div><nav>
-    <a href="/home">Home</a>
-    <a href="/shop/">Shop</a>
-    <a href="/cart/" class="active">Cart</a>
-    <a href="#">Collections</a>
-    <a href="#">About</a>
-
-    <button>Login</button>
-</nav>
-
-</header><section class="product"><div class="gallery">
-    <img class="main-img"
-         src="{{ product.image.url }}"
-         alt="{{ product.name }}">
-</div>
-
-<div class="details">
-
-    <p class="tag">
-        PREMIUM COLLECTION
-    </p>
-
-    <h1>{{ product.name }}</h1>
-
-    <div class="rating">
-        ⭐⭐⭐⭐⭐
     </div>
 
-    <h2>₹{{ product.price }}</h2>
+    <nav>
+        <a href="/home">Home</a>
+        <a href="/shop/">Shop</a>
+        <a href="/cart/">Cart</a>
+        <a href="#">Collections</a>
+        <a href="#">About</a>
+        <button>Login</button>
+    </nav>
 
-    <p class="stock">
-        ✔ In Stock
-    </p>
+</header>
 
-    <p class="desc">
-        {{ product.description }}
-    </p>
+<section class="product">
 
-    <h3>Select Size</h3>
+    <div class="gallery">
 
-    <form action="{% url 'add_to_cart' product.id %}" method="POST">
+        {% if product.image %}
+        <img class="main-img"
+             src="{{ product.image.url }}"
+             alt="{{ product.name }}">
+        {% endif %}
 
-        {% csrf_token %}
+    </div>
 
-        <div class="sizes">
-            <button type="button">S</button>
-            <button type="button">M</button>
-            <button type="button">L</button>
-            <button type="button">XL</button>
-        </div>
+    <div class="details">
 
-        <input type="hidden" id="selectedSize" name="size" value="S">
+        <p class="tag">PREMIUM COLLECTION</p>
 
-        <div class="actions">
+        <h1>{{ product.name }}</h1>
 
-            <button type="submit" class="cart">
-                Add To Cart
-            </button>
+        <div class="rating">★★★★★</div>
 
-            <form action="{% url 'buy_now' product.id %}" method="POST">
-    {% csrf_token %}
+        <h2>₹{{ product.price }}</h2>
 
-    <input type="hidden" id="selectedSize" name="size" value="S">
+        <p class="stock">✔ In Stock</p>
 
-    <button type="submit" class="buy">
-        Buy Now
-    </button>
-</form>
-        </div>
+        <p class="desc">
+            {{ product.description }}
+        </p>
 
-    </form>
+        <form method="POST">
 
-    <p class="delivery">
-        🚚 Free Delivery | Secure Payment
-    </p>
+            {% csrf_token %}
 
-</div>
+            <h3>Select Size</h3>
 
-</section><script src="{% static 'js/product.js' %}"></script></body>
+            <div class="sizes">
+
+                <label class="size-box">
+                    <input type="radio" name="size" value="S" required>
+                    <span>S</span>
+                </label>
+
+                <label class="size-box">
+                    <input type="radio" name="size" value="M">
+                    <span>M</span>
+                </label>
+
+                <label class="size-box">
+                    <input type="radio" name="size" value="L">
+                    <span>L</span>
+                </label>
+
+                <label class="size-box">
+                    <input type="radio" name="size" value="XL">
+                    <span>XL</span>
+                </label>
+
+            </div>
+            
+
+            <div class="actions">
+
+                <button class="cart"
+                        type="submit"
+                        formaction="{% url 'add_to_cart' product.id %}">
+                    ADD TO CART
+                </button>
+
+                <button class="buy"
+                        type="submit"
+                        formaction="{% url 'buy_now' product.id %}">
+                    BUY NOW
+                </button>
+
+            </div>
+
+        </form>
+
+        <p class="delivery">
+            🚚 Free Delivery | Secure Payment
+        </p>
+
+    </div>
+
+</section>
+
+<script src="{% static 'js/product.js' %}"></script>
+
+</body>
 </html>

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/product_form.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h1>Add Product</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <input type="text" name="name" placeholder="Product Name" required>
+
+        <input type="number" name="price" placeholder="Price" required>
+
+        <input type="text" name="category" placeholder="Category" required>
+
+        <textarea name="description" placeholder="Description"></textarea>
+
+        <input type="file" name="image" required>
+
+        <button type="submit">Add Product</button>
+
+    </form>
+
+</div>
+
+{% endblock %}

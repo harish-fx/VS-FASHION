@@ -276,3 +276,40 @@ nav button:hover{
     color:black;
     border:1px solid #d4af37;
 }
+
+
+.sizes{
+    display:flex;
+    gap:15px;
+    margin:20px 0;
+}
+
+.size-box input{
+    display:none;
+}
+
+.size-box span{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:60px;
+    height:60px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    background:#fff;
+    color:#222;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.size-box span:hover{
+    border-color:#d4af37;
+    transform:translateY(-3px);
+}
+
+.size-box input:checked + span{
+    background:#d4af37;
+    color:#000;
+    border-color:#d4af37;
+}
