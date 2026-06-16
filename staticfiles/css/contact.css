@@ -1,0 +1,133 @@
+.contact-hero{
+min-height:55vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:100px 10%;
+}
+
+.subtitle{
+color:#d4af37;
+letter-spacing:4px;
+font-size:14px;
+margin-bottom:20px;
+}
+
+.contact-hero h1{
+font-family:'Cormorant Garamond',serif;
+font-size:85px;
+margin-bottom:20px;
+line-height:1;
+}
+
+.contact-hero h1 span{
+color:#d4af37;
+}
+
+.contact-hero p{
+max-width:700px;
+color:#cfcfcf;
+line-height:1.8;
+font-size:17px;
+}
+
+.contact-container{
+display:flex;
+justify-content:center;
+align-items:stretch;
+gap:40px;
+flex-wrap:wrap;
+padding:80px 10%;
+}
+
+.info-card{
+width:380px;
+background:#0d0d0d;
+border:1px solid rgba(212,175,55,.3);
+border-radius:20px;
+padding:40px;
+}
+
+.info-card h2{
+color:#d4af37;
+margin-bottom:10px;
+font-size:28px;
+}
+
+.info-card p{
+color:#d0d0d0;
+margin-bottom:30px;
+line-height:1.8;
+}
+
+.form-card{
+width:600px;
+background:#0d0d0d;
+border:1px solid rgba(212,175,55,.3);
+border-radius:20px;
+padding:40px;
+}
+
+.form-card form{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.form-card input,
+.form-card textarea{
+background:#141414;
+border:1px solid rgba(212,175,55,.2);
+color:white;
+padding:16px;
+border-radius:12px;
+outline:none;
+font-size:15px;
+}
+
+.form-card input:focus,
+.form-card textarea:focus{
+border-color:#d4af37;
+}
+
+.form-card button{
+background:#d4af37;
+color:black;
+border:none;
+padding:16px;
+border-radius:30px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+.form-card button:hover{
+transform:translateY(-3px);
+}
+
+footer{
+text-align:center;
+padding:50px 10%;
+color:#9d9d9d;
+border-top:1px solid rgba(212,175,55,.15);
+margin-top:50px;
+}
+
+@media(max-width:768px){
+
+.contact-hero h1{
+    font-size:55px;
+}
+
+.info-card,
+.form-card{
+    width:100%;
+}
+
+.contact-container{
+    padding:60px 6%;
+}
+
+}

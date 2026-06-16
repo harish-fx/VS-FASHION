@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-g!fm0g$^a--^d%^k2gi)z##zwnr-q5coju)v+_)p53i+7l51oc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -132,5 +132,5 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-RAZORPAY_KEY_ID = 'rzp_test_T1s3z9xMz7TJaa'
-RAZORPAY_KEY_SECRET = '6Fmsb8bMc7nYFbV7FEWiqxI5'
+RAZORPAY_KEY_ID = 'rzp_test_T29zVjXo3e7990'
+RAZORPAY_KEY_SECRET = '4b7eEvz33MGeB0Lq7QUgQ4po'

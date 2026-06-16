@@ -1,0 +1,96 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#111,#1f1f1f);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.success-container{
+    width:100%;
+    padding:20px;
+}
+
+.success-card{
+    max-width:600px;
+    margin:auto;
+    background:#fff;
+    padding:50px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,0.25);
+}
+
+.checkmark{
+    width:100px;
+    height:100px;
+    margin:auto;
+    border-radius:50%;
+    background:#d4af37;
+    color:white;
+    font-size:50px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.success-card h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:42px;
+    color:#111;
+    margin-bottom:15px;
+}
+
+.success-card p{
+    color:#666;
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.order-status{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #eee;
+    margin-bottom:10px;
+}
+
+.order-status strong{
+    color:#d4af37;
+}
+
+.shop-btn{
+    display:inline-block;
+    margin-top:30px;
+    padding:15px 35px;
+    background:#111;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    transition:0.3s;
+}
+
+.shop-btn:hover{
+    background:#d4af37;
+    color:#111;
+}
+
+@media(max-width:768px){
+
+    .success-card{
+        padding:30px;
+    }
+
+    .success-card h1{
+        font-size:32px;
+    }
+
+}
