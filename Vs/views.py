@@ -1,3 +1,5 @@
+from pyexpat.errors import messages
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout
@@ -6,6 +8,10 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import  staff_member_required
+from urllib3 import request
+
 
 from .models import Product, Cart, Order,Notification
 
@@ -132,29 +138,42 @@ def login_view(request):
 
         if user is not None:
             auth_login(request, user)
+            request.session.set_expiry(0)  # Browser close aana logout
             return redirect("home")
+        else:
+            messages.error(request, "Invalid username or password.")
 
     return render(request, "login.html")
 
+from django.contrib import messages
 
 def register(request):
-
     if request.method == "POST":
+        username = request.POST["username"]
+        email = request.POST["email"]
+        password1 = request.POST["password1"]
+        password2 = request.POST["password2"]
 
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password1 = request.POST.get("password1")
-        password2 = request.POST.get("password2")
+        if password1 != password2:
+            messages.error(request, "Passwords do not match!")
+            return redirect("register")
 
-        if password1 == password2:
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists!")
+            return redirect("register")
 
-            User.objects.create_user(
-                username=username,
-                email=email,
-                password=password1
-            )
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already registered!")
+            return redirect("register")
 
-            return redirect("login")
+        User.objects.create_user(
+            username=username,
+            email=email,
+            password=password1
+        )
+
+        messages.success(request, "Registration successful! Please login.")
+        return redirect("login")
 
     return render(request, "register.html")
 
@@ -199,131 +218,10 @@ def decrease_quantity(request, id):
     return redirect("cart")
 
 
-def checkout(request):
+def buy_now(request, id):
 
     if not request.user.is_authenticated:
         return redirect("login")
-
-    cart_items = Cart.objects.filter(user=request.user)
-
-    total = 0
-    for item in cart_items:
-        total += item.product.price * item.quantity
-
-    if request.method == "POST":
-
-        payment_method = request.POST.get("payment_method")
-
-        # CASH ON DELIVERY
-        if payment_method == "cod":
-
-            Order.objects.create(
-                user=request.user,
-                full_name=request.POST.get("full_name"),
-                phone=request.POST.get("phone"),
-                email=request.POST.get("email"),
-                address=request.POST.get("address"),
-                total_amount=total
-            )
-
-            send_mail(
-                subject="New COD Order Received - VS Fashions",
-                message=f"""
-Customer: {request.user.username}
-
-Email: {request.user.email}
-
-Payment Method: Cash On Delivery
-
-Total Amount: ₹{total}
-""",
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=["vsfashion@gmail.com"],
-                fail_silently=False,
-            )
-
-            cart_items.delete()
-            return render(request, "success.html")
-
-        # ONLINE PAYMENT SUCCESS (Razorpay handler submit pannum)
-        Order.objects.create(
-            user=request.user,
-            full_name=request.POST.get("full_name"),
-            phone=request.POST.get("phone"),
-            email=request.POST.get("email"),
-            address=request.POST.get("address"),
-            total_amount=total
-        )
-
-        send_mail(
-            subject="New Online Order Received - VS Fashions",
-            message=f"""
-Customer: {request.user.username}
-
-Email: {request.user.email}
-
-Payment Method: Online Payment
-
-Total Amount: ₹{total}
-""",
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=["vsfashion@gmail.com"],
-            fail_silently=False,
-        )
-
-        subject = "Order Confirmation - VS Fashions"
-
-        html_content = f"""
-        <h2>Thank You for Shopping with VS Fashions ❤️</h2>
-
-        <p>Hello {request.user.username},</p>
-
-        <p>Your order has been placed successfully.</p>
-
-        <p><strong>Total Amount:</strong> ₹{total}</p>
-
-        <p>We will notify you when your order is shipped.</p>
-
-        <br>
-
-        <p>VS Fashions Team</p>
-        """
-
-        email = EmailMultiAlternatives(
-            subject,
-            "",
-            settings.EMAIL_HOST_USER,
-            [request.user.email]
-        )
-
-        email.attach_alternative(html_content, "text/html")
-        email.send()
-
-        cart_items.delete()
-        return render(request, "success.html")
-
-    # RAZORPAY ORDER CREATE (GET request)
-    client = razorpay.Client(
-        auth=(
-            settings.RAZORPAY_KEY_ID,
-            settings.RAZORPAY_KEY_SECRET
-        )
-    )
-
-    payment = client.order.create({
-        "amount": int(total * 100),
-        "currency": "INR",
-        "payment_capture": 1
-    })
-
-    return render(request, "checkout.html", {
-        "cart_items": cart_items,
-        "total": total,
-        "payment": payment,
-        "razorpay_key": settings.RAZORPAY_KEY_ID
-    })
-
-def buy_now(request, id):
 
     product = Product.objects.get(id=id)
 
@@ -339,6 +237,8 @@ def buy_now(request, id):
 
     return redirect("checkout")
 
+
+@login_required
 def orders(request):
     orders = Order.objects.filter(
         user=request.user
@@ -350,6 +250,7 @@ def orders(request):
         {"orders": orders}
     )
 
+@staff_member_required
 def dashboard(request):
 
     total_products = Product.objects.count()
@@ -358,21 +259,36 @@ def dashboard(request):
 
     products = Product.objects.all().order_by('-id')
 
+    # orders display
+    orders = Order.objects.all().order_by('-id')
+
     total_revenue = 0
+
     notifications = Notification.objects.filter(
-    is_read=False
+        is_read=False
     ).count()
 
-    for order in Order.objects.all():
+
+    for order in orders:
         total_revenue += order.total_amount
 
+
     return render(request, "dashboard.html", {
+
         "total_products": total_products,
+
         "total_orders": total_orders,
+
         "total_users": total_users,
+
         "total_revenue": total_revenue,
+
         "products": products,
+
+        "orders": orders,
+
         "notification": notifications
+
     })
 
 def edit_product(request, id):
@@ -418,3 +334,95 @@ def add_product(request):
         return redirect("dashboard")
 
     return render(request, "add_product.html")
+
+
+
+
+def mens(request):
+    products = Product.objects.filter(category='Men')
+    return render(request, 'mens.html', {'products': products})
+
+def womens(request):
+    products = Product.objects.filter(category='Women')
+    return render(request, 'womens.html', {'products': products})
+
+def kids(request):
+    products = Product.objects.filter(category='kids')
+    return render(request, 'kids.html', {'products': products})
+
+def new_arrivals(request):
+    products = Product.objects.filter(category='New Arrivals')
+    return render(request, 'new_arrivals.html', {'products': products})
+
+
+
+def checkout(request):
+
+    if not request.user.is_authenticated:
+        return redirect("login")
+
+    cart_items = Cart.objects.filter(user=request.user)
+
+    total = 0
+    for item in cart_items:
+        total += item.product.price * item.quantity
+
+    if request.method == "POST":
+
+        Order.objects.create(
+            user=request.user,
+            full_name=request.POST.get("full_name"),
+            phone=request.POST.get("phone"),
+            email=request.POST.get("email"),
+            address=request.POST.get("address"),
+            total_amount=total
+        )
+
+        send_mail(
+            subject="New Order Received - VS Fashions",
+            message=f"""
+Customer: {request.user.username}
+
+Email: {request.user.email}
+
+Total Amount: ₹{total}
+""",
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=["vsfashionin@gmail.com"],
+            fail_silently=False,
+        )
+
+        customer_email = request.POST.get("email")
+        email = EmailMultiAlternatives(
+            "Order Confirmation - VS Fashions",
+            "",
+            settings.EMAIL_HOST_USER,
+            [customer_email],
+        )
+
+        email.attach_alternative(
+            f"""
+            <h2>Thank You for Shopping with VS Fashions ❤️</h2>
+            <p>Hello {request.user.username},</p>
+            <p>Your order has been placed successfully.</p>
+            <p><strong>Total Amount:</strong> ₹{total}</p>
+            """,
+            "text/html"
+        )
+
+        email.send()
+
+        cart_items.delete()
+
+        return render(request, "success.html")
+
+    return render(request, "checkout.html", {
+        "cart_items": cart_items,
+        "total": total
+    })
+
+
+
+
+
+

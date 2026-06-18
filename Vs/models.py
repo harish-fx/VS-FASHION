@@ -8,6 +8,9 @@ class Product(models.Model):
         ('Men', 'Men'),
         ('Women', 'Women'),
         ('New Arrivals', 'New Arrivals'),
+        (
+          'kids', 'kids'
+        )
     )
 
     name = models.CharField(max_length=200)
@@ -28,11 +31,6 @@ class Product(models.Model):
 
 
 
-class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    status = models.CharField(default="Pending", max_length=50)
-    created_at = models.DateTimeField(auto_now_add=True)
 
 class Cart(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -44,12 +42,35 @@ class Cart(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    full_name = models.CharField(max_length=100, default="")
-    phone = models.CharField(max_length=15, default="")
-    email = models.EmailField(blank=True, default="")
-    address = models.TextField(default="")
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    product_name = models.CharField(
+        max_length=200,
+        default=""
+    )
+
+    full_name = models.CharField(
+        max_length=100,
+        default=""
+    )
+
+    phone = models.CharField(
+        max_length=15,
+        default=""
+    )
+
+    email = models.EmailField(
+        blank=True,
+        default=""
+    )
+
+    address = models.TextField(
+        default=""
+    )
 
     total_amount = models.DecimalField(
         max_digits=10,
@@ -57,11 +78,13 @@ class Order(models.Model):
         default=0
     )
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
 
     def __str__(self):
         return self.full_name
-
 
 class Notification(models.Model):
     title = models.CharField(max_length=200)

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Kids Collection | VS Fashions{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/kids.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="collection-hero">
+    <div class="hero-content">
+        <p class="subtitle">VS FASHIONS</p>
+        <h1>KIDS COLLECTION</h1>
+        <p>
+            Comfortable, stylish and playful outfits
+            designed for every little star.
+        </p>
+    </div>
+</section>
+
+<section class="products-section">
+
+    <div class="section-title">
+        <h2>Featured Products</h2>
+    </div>
+
+    <div class="products-grid">
+
+        {% for product in products %}
+        <a href="{% url 'product' product.id %}" class="product-card">
+
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <span>₹{{ product.price }}</span>
+            </div>
+
+        </a>
+        {% empty %}
+        <h3>No Kids Products Available</h3>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

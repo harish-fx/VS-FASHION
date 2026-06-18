@@ -23,12 +23,29 @@
     </div>
 
     <nav>
-        <a href="/home">Home</a>
+        <a href="/">Home</a>
         <a href="/shop/">Shop</a>
         <a href="/cart/">Cart</a>
-        <a href="#">Collections</a>
-        <a href="#">About</a>
-        <button>Login</button>
+        
+
+        {% if user.is_authenticated %}
+
+            <span style="color:#f5c16c;font-weight:600;">
+                {{ user.username }}
+            </span>
+
+            <a href="{% url 'logout' %}">
+                <button>Logout</button>
+            </a>
+
+        {% else %}
+
+            <a href="{% url 'login' %}">
+                <button>Login</button>
+            </a>
+
+        {% endif %}
+
     </nav>
 
 </header>
@@ -90,7 +107,6 @@
                 </label>
 
             </div>
-            
 
             <div class="actions">
 

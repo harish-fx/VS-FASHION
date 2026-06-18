@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Men Collection | VS Fashions{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/mens.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="collection-hero">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <p class="subtitle">VS FASHIONS</p>
+
+        <h1>MEN'S COLLECTION</h1>
+
+        <p>
+            Discover premium fashion crafted for confidence,
+            elegance and modern lifestyle.
+        </p>
+    </div>
+</section>
+
+<section class="products-section">
+
+    <div class="section-title">
+        <h2>Featured Products</h2>
+    </div>
+
+    <div class="products-grid">
+
+        {% for product in products %}
+        <a href="{% url 'product' product.id %}" class="product-card">
+
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <span>₹{{ product.price }}</span>
+            </div>
+
+        </a>
+        {% empty %}
+
+        <div style="text-align:center;padding:40px;">
+            <h3>No Men's Products Available</h3>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

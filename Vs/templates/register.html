@@ -47,11 +47,6 @@
             font-size:15px;
         }
 
-        input:focus{
-            outline:none;
-            border:1px solid #f4b15f;
-        }
-
         button{
             width:100%;
             padding:14px;
@@ -62,11 +57,6 @@
             color:black;
             font-weight:bold;
             cursor:pointer;
-            transition:.3s;
-        }
-
-        button:hover{
-            transform:translateY(-3px);
         }
 
         p{
@@ -100,6 +90,21 @@
 
     <h1>Create Account</h1>
 
+    {% if messages %}
+        {% for message in messages %}
+            <div style="
+                background:#ffebee;
+                color:#d32f2f;
+                padding:10px;
+                border-radius:8px;
+                margin-bottom:15px;
+                text-align:center;
+            ">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <form method="POST">
         {% csrf_token %}
 
@@ -111,17 +116,12 @@
 
         <input type="password" name="password2" placeholder="Confirm Password" required>
 
-        <button type="submit">
-            Create Account
-        </button>
-
+        <button type="submit">Create Account</button>
     </form>
 
     <p>
         Already have an account?
-        <a href="{% url 'login' %}">
-            Login
-        </a>
+        <a href="{% url 'login' %}">Login</a>
     </p>
 
 </div>
