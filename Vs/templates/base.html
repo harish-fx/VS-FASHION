@@ -12,14 +12,14 @@
 
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
-    {% block extra_css %}
-    {% endblock %}
+    {% block extra_css %}{% endblock %}
 </head>
 
 <body>
 
 <header>
 
+    <!-- LEFT -->
     <div class="logo">
         <a href="/home/">
             <h1>VS</h1>
@@ -27,12 +27,12 @@
         </a>
     </div>
 
+    <!-- CENTER -->
     <nav>
         <a href="/">Home</a>
 
         <div class="dropdown">
             <a href="/shop/">Shop</a>
-
             <div class="dropdown-content">
                 <a href="/mens/">Men</a>
                 <a href="/womens/">Women</a>
@@ -45,32 +45,22 @@
         <a href="/contact/">Contact</a>
     </nav>
 
+    <!-- RIGHT -->
     <div class="right-menu">
 
         <a href="/cart/">Cart</a>
-
         <a href="/orders/">Orders</a>
 
         {% if user.is_authenticated %}
-
-            <span class="username">
-                {{ user.username }}
-            </span>
+            <span class="username">{{ user.username }}</span>
 
             <a href="{% url 'logout' %}">
-                <button class="premium-btn">
-                    Logout
-                </button>
+                <button class="premium-btn">Logout</button>
             </a>
-
         {% else %}
-
             <a href="{% url 'login' %}">
-                <button class="premium-btn">
-                    Login
-                </button>
+                <button class="premium-btn">Login</button>
             </a>
-
         {% endif %}
 
     </div>
@@ -78,8 +68,7 @@
 </header>
 
 <main>
-    {% block content %}
-    {% endblock %}
+    {% block content %}{% endblock %}
 </main>
 
 </body>
