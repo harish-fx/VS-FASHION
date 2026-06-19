@@ -137,8 +137,18 @@ SESSION_COOKIE_AGE = 3600
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-RAZORPAY_KEY_ID = 'rzp_test_T29zVjXo3e7990'
-RAZORPAY_KEY_SECRET = '4b7eEvz33MGeB0Lq7QUgQ4po'
+RAZORPAY_KEY_ID = 'rzp_test_T3LLNpwLQI75kk'
+
+
+
+
+
+
+
+
+
+
+RAZORPAY_KEY_SECRET = '1gU30xMYtJ6nzwi9GURVrKWu'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
